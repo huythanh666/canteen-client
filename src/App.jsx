@@ -1,10 +1,5 @@
-import './App.css'
-
 function App() {
-
-  return (
-   <div class="bg-sky-500"></div>
-  )
+  return <div class="bg-sky-500">asdasd</div>;
 }
 
-export default App
+export default App;
