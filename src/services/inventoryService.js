@@ -7,15 +7,16 @@ const inventoryService = {
   getAllTransaction: () => {
     return axiosClient.get("/inventory/getAllTransaction");
   },
-  createInventory: (data) => {
-    return axiosClient.post("/inventory/createInventory", data);
-  },
   createTransaction: (data) => {
     return axiosClient.post("/inventory/createTransaction", data);
   },
   getDetailInventory: (id) => {
-    return axiosClient.get(`/inventory/getAllInventory/${id}`);
+    return axiosClient.get(`/inventory/getDetailInventory/${id}`);
   },
+  createInventory: (data) => {
+    return axiosClient.post("/inventory/createInventory", data);
+  },
+  // chưa làm
   report: () => {
     return axiosClient.get("/inventory/report");
   },
