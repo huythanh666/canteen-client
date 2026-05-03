@@ -13,5 +13,8 @@ const authService = {
   refreshToken: () => {
     return axiosClient.post("/auth/refreshToken");
   },
+  getMe: () => {
+    return axiosClient.get("/auth/me");
+  },
 };
 export default authService;

@@ -1,23 +1,28 @@
 import axiosClient from "../api/axiosClient";
 
 const orderService = {
+  historyOrder: () => {
+    return axiosClient.get("/order/historyOrder");
+  },
+  myHistoryOrder: () => {
+    return axiosClient.get("/order/my-history");
+  },
+  report: () => {
+    return axiosClient.get("/order/report");
+  },
+
+  // done
   createOrder: (data) => {
     return axiosClient.post("/order/createOrder", data);
-  },
-  history: () => {
-    return axiosClient.get("/order/history");
   },
   getOrderDetail: (id) => {
     return axiosClient.get(`/order/getOrderDetail/${id}`);
   },
-  getAllOrder: () => {
-    return axiosClient.get("/order/getAllOrder");
+  getAllOrder: (params) => {
+    return axiosClient.get("/order/getAllOrder", { params });
   },
-  updateOrder: (id) => {
-    return axiosClient.put(`/order/updateOrder/${id}`);
-  },
-  report: () => {
-    return axiosClient.get("/order/report");
+  updateOrder: (id, data) => {
+    return axiosClient.put(`/order/updateOrder/${id}`, data);
   },
 };
 export default orderService;
