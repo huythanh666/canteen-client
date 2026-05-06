@@ -1,11 +1,11 @@
 import axiosClient from "../api/axiosClient";
 
-const voucherService = {
-  myWallet: (id) => {
-    return axiosClient.get(`/wallet/myWallet/${id}`);
+const walletService = {
+  myWallet: () => {
+    return axiosClient.get("/wallet/myWallet");
   },
-  deposit: () => {
-    return axiosClient.get("/wallet/deposit");
+  deposit: (data) => {
+    return axiosClient.post("/wallet/deposit", data);
   },
   getAllTransaction: () => {
     return axiosClient.get("/wallet/getAllTransaction");
@@ -16,5 +16,8 @@ const voucherService = {
   refund: (id) => {
     return axiosClient.get(`/wallet/refund${id}`);
   },
+  report: () => {
+    return axiosClient.get("/wallet/report");
+  },
 };
-export default voucherService;
+export default walletService;

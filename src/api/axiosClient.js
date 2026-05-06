@@ -1,16 +1,14 @@
 import axios from "axios";
 import useAuthStore from "../store/useAuthStore";
 
-// Tạo instance của axios
 const axiosClient = axios.create({
-  baseURL: "http://localhost:8080/api/v1", // Thay bằng URL API của bạn
+  baseURL: "http://localhost:8080/api/v1",
   headers: {
     "Content-Type": "application/json",
   },
-  withCredentials: true, // BẮT BUỘC: Để trình duyệt gửi kèm Cookie (refreshToken) lên server
+  withCredentials: true,
 });
 
-// 1. INTERCEPTOR CHO REQUEST: Gắn AccessToken vào Header trước khi gửi đi
 axiosClient.interceptors.request.use(
   (config) => {
     const token = useAuthStore.getState().accessToken;
@@ -27,11 +25,9 @@ axiosClient.interceptors.request.use(
   },
 );
 
-// Biến để quản lý trạng thái Refresh Token
 let isRefreshing = false;
 let failedQueue = [];
 
-// Hàm để đẩy các request bị lỗi 401 vào hàng đợi (Queue)
 const processQueue = (error, token = null) => {
   failedQueue.forEach((prom) => {
     if (error) {
@@ -44,25 +40,24 @@ const processQueue = (error, token = null) => {
 };
 
 axiosClient.interceptors.response.use(
-  (response) => {
-    return response.data;
-  },
+  (response) => response.data,
   async (error) => {
     const originalRequest = error.config;
-    if (error.response?.status === 401 && !originalRequest._retry) {
-      if (isRefreshing) {
+
+    if (
+      (error.response?.status === 401 || error.response?.status === 403) &&
+      !originalRequest._retry
+    ) {
+      if (useAuthStore.getState().isRefreshing) {
         return new Promise((resolve, reject) => {
           failedQueue.push({ resolve, reject });
-        })
-          .then((token) => {
-            originalRequest.headers.Authorization = `Bearer ${token}`;
-            return axiosClient(originalRequest);
-          })
-          .catch((err) => Promise.reject(err));
+        }).then((token) => {
+          originalRequest.headers.Authorization = `Bearer ${token}`;
+          return axiosClient(originalRequest);
+        });
       }
-
       originalRequest._retry = true;
-      isRefreshing = true;
+      useAuthStore.getState().actions.setRefreshing(true);
 
       try {
         const res = await axios.post(
@@ -73,25 +68,18 @@ axiosClient.interceptors.response.use(
 
         const { accessToken, user } = res.data.data;
         useAuthStore.getState().actions.login(user, accessToken);
-        axiosClient.defaults.headers.common["Authorization"] =
-          `Bearer ${accessToken}`;
+
+        useAuthStore.getState().actions.setRefreshing(false);
         processQueue(null, accessToken);
 
-        isRefreshing = false;
-
-        originalRequest.headers.Authorization = `Bearer ${accessToken}`;
         return axiosClient(originalRequest);
       } catch (refreshError) {
-        processQueue(refreshError, null);
-        isRefreshing = false;
-
+        useAuthStore.getState().actions.setRefreshing(false);
         useAuthStore.getState().actions.logout();
         return Promise.reject(refreshError);
       }
     }
-
     return Promise.reject(error);
   },
 );
-
 export default axiosClient;

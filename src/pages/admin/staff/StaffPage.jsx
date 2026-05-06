@@ -2,13 +2,12 @@
 import { useFetcher, useLoaderData } from "react-router-dom";
 import StaffDetailModal from "./StaffDetailModal";
 import { useState } from "react";
+import RegisterUserModal from "./RegisterUserModal";
 
 function StaffPage() {
   const users = useLoaderData();
   const fetcher = useFetcher();
-
   const [selectedUserId, setSelectedUserId] = useState(null);
-
   const getRoleStyle = (role) => {
     switch (role) {
       case "SUPER_ADMIN":
@@ -21,14 +20,11 @@ function StaffPage() {
         return "bg-slate-100 text-slate-700";
     }
   };
-
-  // Helper để lấy màu cho cột trạng thái
   const getStatusStyle = (status) => {
     return status === "ACTIVE"
       ? "bg-green-100 text-green-700"
       : "bg-red-100 text-red-700";
   };
-
   const handleDelete = (userId) => {
     if (!window.confirm("Bạn có chắc chắn muốn xóa nhân viên này?")) return;
     const formData = new FormData();
@@ -36,12 +32,19 @@ function StaffPage() {
     formData.append("userId", userId);
     fetcher.submit(formData, { method: "post" });
   };
+  const [isRegisterOpen, setIsRegisterOpen] = useState(false);
 
   return (
     <div className="p-6 bg-slate-50 min-h-screen">
-      <h1 className="font-black text-2xl text-slate-800 mb-6">
-        Quản lý nhân viên
-      </h1>
+      <div className="flex justify-between items-center mb-6">
+        <h1 className="text-2xl font-black">Danh sách nhân viên</h1>
+        <button
+          onClick={() => setIsRegisterOpen(true)}
+          className="bg-blue-600 text-white px-4 py-2 rounded-xl font-bold"
+        >
+          + Đăng ký thành viên
+        </button>
+      </div>
 
       <div className="bg-white rounded-3xl shadow-sm border border-slate-100 overflow-hidden">
         <table className="w-full text-sm text-left">
@@ -75,8 +78,6 @@ function StaffPage() {
                   <td className="px-6 py-4 text-slate-600">
                     {user.canteen?.name || "N/A"}
                   </td>
-
-                  {/* Hiển thị trạng thái */}
                   <td className="px-6 py-4">
                     <span
                       className={`px-2 py-1 rounded-lg text-xs font-bold ${getStatusStyle(user.status)}`}
@@ -114,7 +115,9 @@ function StaffPage() {
           </tbody>
         </table>
       </div>
-
+      {isRegisterOpen && (
+        <RegisterUserModal onClose={() => setIsRegisterOpen(false)} />
+      )}
       {selectedUserId && (
         <StaffDetailModal
           userId={selectedUserId}

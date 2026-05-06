@@ -5,6 +5,9 @@ import authRoutes from "./authRoutes";
 import RoleBasedRoute from "./RoleBasedRoute";
 import { BusinessPermission } from "../constants/RolePermisson";
 import adminRoutes from "./adminRoutes";
+import customerRoute from "./customerRoutes";
+import NotFoundPage from "../pages/NotFound";
+import ForbiddenPage from "../pages/ForbiddenPage";
 
 const router = createBrowserRouter([
   {
@@ -16,9 +19,14 @@ const router = createBrowserRouter([
     element: <RoleBasedRoute allowedRoles={BusinessPermission} />,
     children: [adminRoutes],
   },
+  customerRoute,
   {
     path: "*",
-    element: <div>404 - Trang không tồn tại</div>,
+    element: <NotFoundPage />,
+  },
+  {
+    path: "403-unauthorized",
+    element: <ForbiddenPage />,
   },
 ]);
 

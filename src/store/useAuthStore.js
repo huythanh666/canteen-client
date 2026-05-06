@@ -11,13 +11,14 @@ const useAuthStore = create(
         user: null,
         accessToken: null,
         _hasHydrated: false,
+        isRefreshing: false,
         actions: {
           login: (userData, token) =>
             set((state) => {
               state.user = userData;
               state.accessToken = token;
             }),
-
+          setRefreshing: (status) => set({ isRefreshing: status }),
           logout: () =>
             set((state) => {
               state.user = null;
