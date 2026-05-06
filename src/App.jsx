@@ -1,9 +1,9 @@
 import { Suspense, useEffect, useState } from "react";
-import RootLayout from "./layouts/AdminLayout";
 import { BrowserRouter, RouterProvider } from "react-router-dom";
 import router from "./routes";
 import useAuthStore from "./store/useAuthStore";
 import FullScreenLoader from "./components/FullScreenLoader";
+import LoadingPage from "./pages/LoadingPage";
 
 function App() {
   const isHydrated = useAuthStore((state) => state._hasHydrated);
@@ -19,7 +19,7 @@ function App() {
     checkSession();
   }, [isHydrated, initializeAuth]);
   if (!isHydrated || isCheckingServer) {
-    return <div className="loading-global">Loading system data...</div>;
+    return <LoadingPage />;
   }
   return (
     <Suspense fallback={<div>Loading system...</div>}>

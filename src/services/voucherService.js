@@ -16,8 +16,8 @@ const voucherService = {
   createVoucher: (data) => {
     return axiosClient.post("/voucher/createVoucher", data);
   },
-  updateVoucher: (id, data) => {
-    return axiosClient.put(`/voucher/updateVoucher${id}`, data);
+  updateVoucher: (id) => {
+    return axiosClient.put(`/voucher/updateVoucher/${id}`);
   },
 };
 export default voucherService;

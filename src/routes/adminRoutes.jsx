@@ -1,4 +1,4 @@
-import AdminLayout from "../layouts/AdminLayout";
+import AdminLayout from "../layouts/admin/AdminLayout";
 import InventoryPage from "../pages/admin/inventory/InventoryPage";
 import OrderPage from "../pages/admin/order/OrderPage";
 import ProductPage from "../pages/admin/product/ProductPage";
@@ -24,6 +24,17 @@ import ManageProduct from "../pages/admin/manage-product/ManageProduct";
 import { productAction } from "../pages/admin/manage-product/manage.loader";
 import HistoryOrderPage from "../pages/admin/order/HistoryOrder";
 import { staffAction, StaffList } from "../pages/admin/staff/staff.loader";
+import {
+  voucherAction,
+  voucherList,
+} from "../pages/admin/voucher/voucher.loader";
+import {
+  walletAction,
+  walletList,
+  walletTransactionList,
+} from "../pages/admin/wallet/wallet.loader";
+import WalletTransactionPage from "../pages/admin/wallet/WalletTransactionPage";
+import { reportData } from "../pages/admin/report/report.loader";
 
 const adminRoutes = {
   path: "admin",
@@ -50,8 +61,13 @@ const adminRoutes = {
     {
       element: <RoleBasedRoute allowedRoles={BusinessComplexPermission} />,
       children: [
-        { path: "vouchers", element: <VoucherPage /> },
-        { path: "report", element: <ReportPage /> },
+        {
+          path: "vouchers",
+          element: <VoucherPage />,
+          loader: voucherList,
+          action: voucherAction,
+        },
+        { path: "report", element: <ReportPage />, loader: reportData },
         {
           path: "inventory",
           element: <InventoryPage />,
@@ -70,7 +86,22 @@ const adminRoutes = {
           action: productAction,
         },
 
-        { path: "wallets", element: <WalletPage /> },
+        {
+          path: "wallets",
+          children: [
+            {
+              index: true,
+              element: <WalletPage />,
+              loader: walletList,
+              action: walletAction,
+            },
+            {
+              path: "transactions",
+              element: <WalletTransactionPage />,
+              loader: walletTransactionList,
+            },
+          ],
+        },
       ],
     },
   ],
