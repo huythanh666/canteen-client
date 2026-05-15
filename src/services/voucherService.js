@@ -8,7 +8,7 @@ const voucherService = {
     return axiosClient.get(`/voucher/getVoucherDetail${id}`);
   },
   saveVoucher: (id) => {
-    return axiosClient.post(`/voucher/saveVoucher${id}`);
+    return axiosClient.post(`/voucher/saveVoucher/${id}`);
   },
   getMyVoucher: () => {
     return axiosClient.get("/voucher/getMyVoucher");

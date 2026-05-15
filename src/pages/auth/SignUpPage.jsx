@@ -23,7 +23,6 @@ function SignUpPage() {
   const [campuses, setCampuses] = useState([]);
   const [canteens, setCanteens] = useState([]);
 
-  // Load danh sách Campus và Canteen để chọn
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -102,7 +101,6 @@ function SignUpPage() {
                 )}
               </div>
 
-              {/* Password */}
               <div>
                 <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
                   Password

@@ -17,4 +17,8 @@ export const NavRoute = [
     title: "Ví của tôi",
     path: `${path}/wallets`,
   },
+  {
+    title: "Kho Voucher",
+    path: `${path}/vouchers`,
+  },
 ];

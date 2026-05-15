@@ -19,7 +19,7 @@ const useCartStore = create(
               const item = state.cart.find((i) => i.id === id);
               if (item) item.quantity += 1;
             }),
-          descrement: (id) =>
+          decrement: (id) =>
             set((state) => {
               const item = state.cart.find((e) => e.id === id);
               if (item) item.quantity -= 1;

@@ -30,6 +30,11 @@ function Footer() {
                 Đơn hàng của tôi
               </NavLink>
             </li>
+            <li>
+              <NavLink to="/customer/vouchers" className="hover:text-blue-600">
+                Kho Voucher
+              </NavLink>
+            </li>
           </ul>
         </div>
 

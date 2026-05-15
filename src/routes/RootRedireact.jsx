@@ -5,7 +5,7 @@ const RootRedirect = () => {
   const user = useAuthStore((state) => state.user);
   if (!user) return <Navigate to="/auth/login" replace />;
   return user.role === "STUDENT" ? (
-    <Navigate to="/customer" replace />
+    <Navigate to="/customer/homepage" replace />
   ) : (
     <Navigate to="/admin/orders" replace />
   );

@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useCart } from "../../../store/useCartStore";
 import CartModal from "../../admin/product/CartModal";
 import CardProduct from "../../admin/product/CardProduct";
+import OrderCart from "./OrderCart";
 
 function MenuPage() {
   const products = useLoaderData();
@@ -46,16 +47,13 @@ function MenuPage() {
           )}
         </button>
       </div>
-
-      {/* Grid hiển thị sản phẩm */}
       <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6 overflow-y-auto pr-2">
         {availableProducts.map((product) => (
           <CardProduct key={product.id} product={product} />
         ))}
       </div>
 
-      {/* Modal giỏ hàng */}
-      <CartModal isOpen={isCartOpen} onClose={() => setIsCartOpen(false)} />
+      <OrderCart isOpen={isCartOpen} onClose={() => setIsCartOpen(false)} />
     </div>
   );
 }

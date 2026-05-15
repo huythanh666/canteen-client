@@ -21,7 +21,6 @@ function HistoryOrderPage() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedOrderId, setSelectedOrderId] = useState(null);
 
-  // 3. Hàm xử lý khi nhấn "Xem chi tiết"
   const handleViewDetail = (orderId) => {
     setSelectedOrderId(orderId);
     setIsModalOpen(true);
@@ -43,6 +42,7 @@ function HistoryOrderPage() {
                 <th className="px-6 py-4">Nhân viên</th>
                 <th className="px-6 py-4">Ngày đặt</th>
                 <th className="px-6 py-4">Tổng tiền</th>
+                <th className="px-6 py-4">Method</th>
                 <th className="px-6 py-4">Trạng thái</th>
                 <th className="px-6 py-4 text-center">Hành động</th>
               </tr>
@@ -68,6 +68,9 @@ function HistoryOrderPage() {
                     </td>
                     <td className="px-6 py-4 font-semibold text-slate-800">
                       {Number(order.final_price || 0).toLocaleString("vi-VN")}đ
+                    </td>
+                    <td className="px-6 py-4 font-semibold text-slate-800">
+                      {order.payment_method || "N/A"}
                     </td>
                     <td className="px-6 py-4">
                       <span

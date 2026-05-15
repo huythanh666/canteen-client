@@ -1,17 +1,15 @@
 import { useState, useEffect } from "react";
-import inventoryService from "../../../services/inventoryService";
+import orderService from "../../../services/orderService";
 
-function InventoryTransactionModal({ isOpen, onClose, transactionId }) {
+function InventoryTransactionModal({ isOpen, onClose, orderId }) {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(false);
-
   useEffect(() => {
-    if (isOpen && transactionId) {
+    if (isOpen && orderId) {
       const fetchDetail = async () => {
         setLoading(true);
         try {
-          const response =
-            await inventoryService.createTransaction(transactionId);
+          const response = await orderService.getOrderDetail(orderId);
           setData(response.data);
         } catch (error) {
           console.error("Lỗi khi tải chi tiết:", error);
@@ -21,7 +19,7 @@ function InventoryTransactionModal({ isOpen, onClose, transactionId }) {
       };
       fetchDetail();
     }
-  }, [isOpen, transactionId]);
+  }, [isOpen, orderId]);
 
   if (!isOpen) return null;
 

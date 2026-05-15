@@ -39,7 +39,6 @@ function InventoryTransactionPage() {
         </div>
       </div>
 
-      {/* Bảng dữ liệu */}
       <div className="flex-1 overflow-y-auto no-scrollbar bg-white rounded-3xl shadow-sm border border-slate-100 p-2">
         <table className="w-full text-sm text-left border-collapse">
           <thead className="text-xs text-slate-400 uppercase bg-slate-50 sticky top-0 z-10">
@@ -80,24 +79,24 @@ function InventoryTransactionPage() {
                 <td className="px-6 py-4 text-slate-400 text-xs">
                   {new Date(item.created_at).toLocaleDateString("vi-VN")}
                 </td>
-                <td className="px-6 py-4 text-center flex justify-center gap-2">
+                {/* <td className="px-6 py-4 text-center flex justify-center gap-2">
                   <button
                     onClick={() => handleOpenDetail(item.order_id)}
                     className="px-3 py-2 bg-slate-100 hover:bg-slate-200 rounded-xl transition-all font-bold text-slate-600 text-xs"
                   >
                     Xem chi tiết
                   </button>
-                </td>
+                </td> */}
               </tr>
             ))}
           </tbody>
         </table>
       </div>
-      <InventoryTransactionModal
+      {/* <InventoryTransactionModal
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
         orderId={selectedOrderId}
-      />
+      /> */}
     </div>
   );
 }
