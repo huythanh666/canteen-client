@@ -26,7 +26,7 @@ function ReportPage() {
   const totalBalance = walletReport?.data?.total_balance || 0;
   const totalSpending = walletReport?.data?.total_spending || 0;
   const walletNet = totalBalance - totalSpending;
-  const financialHealth = totalRevenue - (totalInventoryValue + walletNet);
+  const financialHealth = totalRevenue - (totalInventoryValue + totalBalance);
 
   return (
     <div className="p-6 bg-gray-50 min-h-screen">
@@ -50,8 +50,8 @@ function ReportPage() {
             color="text-blue-600"
           />
           <StatCard
-            title="Ví ròng (Số dư - Chi tiêu)"
-            value={formatCurrency(walletNet)}
+            title="Tổng tiền trong ví (all)"
+            value={formatCurrency(totalBalance)}
             color="text-indigo-600"
           />
           <div className="bg-white p-6 rounded-lg shadow border-l-4 border-purple-500">

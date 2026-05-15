@@ -16,7 +16,6 @@ const inventoryService = {
   createInventory: (data) => {
     return axiosClient.post("/inventory/createInventory", data);
   },
-  // chưa làm
   reportInventoryTransaction: () => {
     return axiosClient.get("/inventory/reportInventoryTransaction");
   },

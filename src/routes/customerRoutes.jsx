@@ -4,6 +4,11 @@ import { menuLoader } from "../pages/customer/menu/menu.loader";
 import MenuPage from "../pages/customer/menu/MenuPage";
 import { orderHistoryLoader } from "../pages/customer/order/order.loader";
 import OrderPage from "../pages/customer/order/OrderPage";
+import {
+  saveVoucherAction,
+  voucherLoader,
+} from "../pages/customer/voucher/voucher.loader";
+import VoucherPage from "../pages/customer/voucher/VoucherPage";
 import MyWalletPage from "../pages/customer/wallet/MyWalletPage";
 import { walletLoader } from "../pages/customer/wallet/wallet.loader";
 
@@ -29,6 +34,12 @@ const customerRoute = {
       path: "wallets",
       element: <MyWalletPage />,
       loader: walletLoader,
+    },
+    {
+      path: "vouchers",
+      element: <VoucherPage />,
+      loader: voucherLoader,
+      action: saveVoucherAction,
     },
   ],
 };

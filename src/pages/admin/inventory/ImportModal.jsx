@@ -26,7 +26,6 @@ function ImportModal({ isOpen, onClose, selectedProduct, staffId }) {
       >
         <h2 className="text-xl font-black text-slate-800 mb-6">Nhập hàng</h2>
 
-        {/* Hidden Fields - Đây là nơi gửi ID thực sự */}
         <input type="hidden" name="intent" value="CREATE_IMPORT" />
         <input type="hidden" name="type" value="IMPORT" />
         <input type="hidden" name="staff_id" value={staffId} />
@@ -37,7 +36,6 @@ function ImportModal({ isOpen, onClose, selectedProduct, staffId }) {
         />
 
         <div className="space-y-4">
-          {/* Input hiển thị tên (Disabled) */}
           <div>
             <label className="block text-xs font-bold text-slate-400 uppercase mb-1">
               Sản phẩm

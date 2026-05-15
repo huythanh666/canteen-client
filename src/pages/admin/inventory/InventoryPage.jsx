@@ -129,8 +129,8 @@ function InventoryPage() {
       <ImportModal
         isOpen={isImportModalOpen}
         onClose={() => setIsImportModalOpen(false)}
-        selectedProduct={selectedProduct} // Truyền sản phẩm đã chọn
-        staffId={user?.id} // Lấy từ store
+        selectedProduct={selectedProduct}
+        staffId={user?.id}
       />
       <InventoryDetailModal
         isOpen={isDetailModalOpen}
